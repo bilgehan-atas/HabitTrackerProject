@@ -1,9 +1,14 @@
-import { useEffect } from "react";
 import { takeEvery, call, put, fork } from "redux-saga/effects";
 import {
   GET_ITEMS_FETCH,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILURE,
+  POST_ITEM_FETCH,
+  POST_ITEM_SUCCESS,
+  POST_ITEM_FAILURE,
+  PUT_ITEM_FETCH,
+  PUT_ITEM_SUCCESS,
+  PUT_ITEM_FAILURE,
   SIGN_IN_FETCH,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
@@ -20,24 +25,113 @@ import {
 
 // items saga
 
-const itemsFetch = () => {
-  return fetch("https://631359a3b466aa9b0397c51e.mockapi.io/b/todos").then(
-    (response) => response.json()
-  );
+const itemsFetch = (payload) => {
+  return fetch(
+    `https://react-http-2ff0f-default-rtdb.europe-west1.firebasedatabase.app/users/${payload.payload.uid}/items.json?auth=${payload.payload.token}`
+  ).then((response) => response.json());
 };
 
-function* workGetItemsFetch() {
-  const response = yield call(itemsFetch);
-  if (response.error) {
+function* workGetItemsFetch(payload) {
+  const response = yield call(() => itemsFetch(payload));
+  if (response === null) {
+    let items = [];
+    yield put({ type: GET_ITEMS_SUCCESS, items });
+  } else if (response.error) {
     yield put({ type: GET_ITEMS_FAILURE, response });
   } else {
-    const items = response.reverse();
+    let items = Object.entries(response).map((entry) => {
+      return { [entry[0]]: entry[1] };
+    });
+    items = items.reverse();
     yield put({ type: GET_ITEMS_SUCCESS, items });
+  }
+}
+
+const postItemFetch = (payload) => {
+  return fetch(
+    `https://react-http-2ff0f-default-rtdb.europe-west1.firebasedatabase.app/users/${payload.payload.uid}/items.json?auth=${payload.payload.token}`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        content: payload.payload.content,
+        days: payload.payload.days,
+        completion: " ",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  ).then((response) => response.json());
+};
+
+function* workPostItemFetch(payload) {
+  const response = yield call(() => postItemFetch(payload));
+  console.log(response);
+  if (response.error) {
+    yield put({ type: POST_ITEM_FAILURE, response });
+  } else {
+    let name = response.name;
+    const item = {
+      [name]: {
+        content: payload.payload.content,
+        days: payload.payload.days,
+        completion: null,
+      },
+    };
+    yield put({ type: POST_ITEM_SUCCESS, item });
+  }
+}
+
+const putItemFetch = (payload) => {
+  switch (payload.payload.method) {
+    case "EDIT":
+      return fetch(
+        `https://react-http-2ff0f-default-rtdb.europe-west1.firebasedatabase.app/users/${payload.payload.uid}/items/${payload.payload.name}.json?auth=${payload.payload.token}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            content: payload.payload.content,
+            days: payload.payload.days,
+            completion: " ",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => response.json());
+    case "COMPLETION":
+      return fetch(
+        `https://react-http-2ff0f-default-rtdb.europe-west1.firebasedatabase.app/users/${payload.payload.uid}/items/${payload.payload.name}.json?auth=${payload.payload.token}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            completion: payload.payload.completion[0],
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => response.json());
+  }
+};
+
+function* workPutItemFetch(payload) {
+  const response = yield call(() => putItemFetch(payload));
+  if (response.error) {
+    yield put({ type: PUT_ITEM_FAILURE, response });
+  } else {
+    let res = {
+      completion: response.completion,
+      name: payload.payload.name,
+    };
+    yield put({ type: PUT_ITEM_SUCCESS, res });
   }
 }
 
 export function* itemsSaga() {
   yield takeEvery(GET_ITEMS_FETCH, workGetItemsFetch);
+  yield takeEvery(POST_ITEM_FETCH, workPostItemFetch);
+  yield takeEvery(PUT_ITEM_FETCH, workPutItemFetch);
 }
 
 // users cookie management

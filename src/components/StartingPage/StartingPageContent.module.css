@@ -1,6 +1,19 @@
 .starting {
 }
 
+.message {
+  display: flex;
+  margin: 3rem auto;
+  width: 95%;
+  max-width: 65rem;
+  color: black;
+  gap: 0.5rem;
+}
+
+.message h2 {
+  color: #38015c;
+}
+
 .boxes {
   margin: 3rem auto;
   width: 95%;
@@ -9,7 +22,6 @@
   background-color: #38015c;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
-  text-align: center;
 }
 
 .boxes h1 {
@@ -28,6 +40,13 @@
   margin-bottom: 0.5rem;
 }
 
+.control span {
+  display: block;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
 .control input {
   font: inherit;
   background-color: #f1e1fc;
@@ -39,11 +58,44 @@
   padding: 0.25rem;
 }
 
+.entries {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.entries label {
+  margin: 1rem;
+}
+
+.entries input[type="checkbox"] {
+  width: 2rem;
+  height: 2rem;
+  display: block;
+}
+
+.days {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.days span {
+  font-size: x-small;
+}
+
 .actions {
   margin-top: 1.5rem;
+  gap: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.actions span {
+  display: block;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .actions button {
@@ -72,4 +124,28 @@
 .actions .toggle:hover {
   background-color: transparent;
   color: #ae82cc;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 0;
+  align-items: center;
+}
+
+.spacebetween {
+  justify-content: space-between;
+}
+
+.center {
+  justify-content: center;
+}
+
+.formborder {
+  border: 1px solid white;
+  max-width: 45rem;
+  margin: 1rem auto;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
 }

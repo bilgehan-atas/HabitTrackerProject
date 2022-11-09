@@ -1,7 +1,14 @@
+import { act } from "react-dom/test-utils";
 import {
   GET_ITEMS_FETCH,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILURE,
+  POST_ITEM_FETCH,
+  POST_ITEM_SUCCESS,
+  POST_ITEM_FAILURE,
+  PUT_ITEM_FETCH,
+  PUT_ITEM_SUCCESS,
+  PUT_ITEM_FAILURE,
   SIGN_IN_FETCH,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
@@ -29,6 +36,31 @@ export const itemsReducer = (
       return { ...state, items: action.items, isLoading: false };
     case GET_ITEMS_FAILURE:
       return { ...state, response: action.response, isLoading: false };
+    case POST_ITEM_FETCH:
+      return { ...state, isLoading: true };
+    case POST_ITEM_SUCCESS:
+      return {
+        ...state,
+        items: [action.item, ...state.items],
+        isLoading: false,
+      };
+    case POST_ITEM_FAILURE:
+      return { ...state, response: action.response, isLoading: false };
+    case PUT_ITEM_FETCH:
+      return { ...state, isLoading: true };
+    case PUT_ITEM_SUCCESS:
+      let newItems = [...state.items];
+      let updatedItem = newItems.find(
+        (element) => !!element?.[action.res.name[0]]
+      )[action.res.name[0]];
+      updatedItem.completion = action.res.completion;
+      return {
+        ...state,
+        items: newItems,
+        isLoading: false,
+      };
+    case PUT_ITEM_FAILURE:
+      return { ...state, response: action.response, isLoading: false };
     default:
       return state;
   }
@@ -38,6 +70,7 @@ export const usersReducer = (
   state = {
     email: "",
     token: "",
+    uid: "",
     response: {},
     isLoggedIn: false,
     isLoading: false,
@@ -52,6 +85,7 @@ export const usersReducer = (
         ...state,
         email: action.response.email,
         token: action.response.idToken,
+        uid: action.response.localId,
         response: action.response,
         isLoggedIn: true,
         isLoading: false,
@@ -65,6 +99,7 @@ export const usersReducer = (
         ...state,
         email: action.response.email,
         token: action.response.idToken,
+        uid: action.response.localId,
         response: action.response,
         isLoggedIn: true,
         isLoading: false,
@@ -72,11 +107,12 @@ export const usersReducer = (
     case SIGN_UP_FAILURE:
       return { ...state, response: action.response, isLoading: false };
     case GET_USER_DATA_FETCH:
-      return { ...state };
+      return { ...state, token: action.payload };
     case GET_USER_DATA_SUCCESS:
       return {
         ...state,
         email: action.response.email,
+        uid: action.response.localId,
         response: action.response,
         isLoggedIn: true,
         isLoading: false,
@@ -101,6 +137,7 @@ export const usersReducer = (
         ...state,
         email: "",
         token: "",
+        uid: "",
         response: {},
         isLoggedIn: false,
         isLoading: false,
