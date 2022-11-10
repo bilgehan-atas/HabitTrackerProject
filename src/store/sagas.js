@@ -9,6 +9,9 @@ import {
   PUT_ITEM_FETCH,
   PUT_ITEM_SUCCESS,
   PUT_ITEM_FAILURE,
+  DELETE_ITEM_FETCH,
+  DELETE_ITEM_SUCCESS,
+  DELETE_ITEM_FAILURE,
   SIGN_IN_FETCH,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
@@ -66,7 +69,6 @@ const postItemFetch = (payload) => {
 
 function* workPostItemFetch(payload) {
   const response = yield call(() => postItemFetch(payload));
-  console.log(response);
   if (response.error) {
     yield put({ type: POST_ITEM_FAILURE, response });
   } else {
@@ -128,10 +130,33 @@ function* workPutItemFetch(payload) {
   }
 }
 
+const DeleteItemFetch = (payload) => {
+  return fetch(
+    `https://react-http-2ff0f-default-rtdb.europe-west1.firebasedatabase.app/users/${payload.payload.uid}/items/${payload.payload.name}.json?auth=${payload.payload.token}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  ).then((response) => response.json());
+};
+
+function* workDeleteItemFetch(payload) {
+  const response = yield call(() => DeleteItemFetch(payload));
+  if (response === null) {
+    let name = payload.payload.name[0];
+    yield put({ type: DELETE_ITEM_SUCCESS, name });
+  } else if (response.error) {
+    yield put({ type: DELETE_ITEM_FAILURE, response });
+  }
+}
+
 export function* itemsSaga() {
   yield takeEvery(GET_ITEMS_FETCH, workGetItemsFetch);
   yield takeEvery(POST_ITEM_FETCH, workPostItemFetch);
   yield takeEvery(PUT_ITEM_FETCH, workPutItemFetch);
+  yield takeEvery(DELETE_ITEM_FETCH, workDeleteItemFetch);
 }
 
 // users cookie management

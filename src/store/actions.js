@@ -8,6 +8,9 @@ export const POST_ITEM_FAILURE = "POST_ITEM_FAILURE";
 export const PUT_ITEM_FETCH = "PUT_ITEM_FETCH";
 export const PUT_ITEM_SUCCESS = "PUT_ITEM_SUCCESS";
 export const PUT_ITEM_FAILURE = "PUT_ITEM_FAILURE";
+export const DELETE_ITEM_FETCH = "DELETE_ITEM_FETCH";
+export const DELETE_ITEM_SUCCESS = "DELETE_ITEM_SUCCESS";
+export const DELETE_ITEM_FAILURE = "DELETE_ITEM_FAILURE";
 
 // users > signin
 export const SIGN_IN_FETCH = "SIGN_IN_FETCH";
@@ -45,6 +48,11 @@ export const postItemFetch = (payload) => ({
 
 export const putItemFetch = (payload) => ({
   type: PUT_ITEM_FETCH,
+  payload: payload,
+});
+
+export const deleteItemFetch = (payload) => ({
+  type: DELETE_ITEM_FETCH,
   payload: payload,
 });
 

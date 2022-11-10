@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import {
   GET_ITEMS_FETCH,
   GET_ITEMS_SUCCESS,
@@ -9,6 +8,9 @@ import {
   PUT_ITEM_FETCH,
   PUT_ITEM_SUCCESS,
   PUT_ITEM_FAILURE,
+  DELETE_ITEM_FETCH,
+  DELETE_ITEM_SUCCESS,
+  DELETE_ITEM_FAILURE,
   SIGN_IN_FETCH,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
@@ -60,6 +62,20 @@ export const itemsReducer = (
         isLoading: false,
       };
     case PUT_ITEM_FAILURE:
+      return { ...state, response: action.response, isLoading: false };
+    case DELETE_ITEM_FETCH:
+      return { ...state, isLoading: true };
+    case DELETE_ITEM_SUCCESS:
+      let dNewItems = [...state.items];
+      dNewItems = dNewItems.filter(
+        (element) => [Object.keys(element)][0][0] !== action.name
+      );
+      return {
+        ...state,
+        items: dNewItems,
+        isLoading: false,
+      };
+    case DELETE_ITEM_FAILURE:
       return { ...state, response: action.response, isLoading: false };
     default:
       return state;

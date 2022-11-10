@@ -3,7 +3,7 @@
 
 .message {
   display: flex;
-  margin: 3rem auto;
+  margin: 1rem auto;
   width: 95%;
   max-width: 65rem;
   color: black;
@@ -15,7 +15,7 @@
 }
 
 .boxes {
-  margin: 3rem auto;
+  margin: 1rem auto;
   width: 95%;
   max-width: 65rem;
   border-radius: 6px;
@@ -62,16 +62,59 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 0 1rem;
+  color: black;
 }
 
 .entries label {
-  margin: 1rem;
+  display: block;
+  color: black;
+  font-weight: bold;
+  margin: 0.5rem;
+}
+
+.entries span {
+  display: block;
+  color: rgb(35, 35, 35);
 }
 
 .entries input[type="checkbox"] {
   width: 2rem;
   height: 2rem;
   display: block;
+}
+
+.left {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+}
+
+.right svg {
+  width: 32px;
+  height: 32px;
+}
+
+.right button {
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
 }
 
 .days {
@@ -84,7 +127,6 @@
 }
 
 .actions {
-  margin-top: 1.5rem;
   gap: 1rem;
   display: flex;
   flex-direction: column;
@@ -148,4 +190,27 @@
   margin: 1rem auto;
   padding: 0.5rem 1.5rem;
   border-radius: 6px;
+}
+
+.popup {
+  position: absolute;
+  z-index: 1;
+  margin: auto;
+  border-radius: 6px;
+  border: 1px solid #38015c;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.popup button {
+  width: 100%;
+  height: 100%;
+}
+
+.textcenter {
+  text-align: center;
 }
