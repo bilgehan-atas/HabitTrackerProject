@@ -120,13 +120,28 @@ const putItemFetch = (payload) => {
 function* workPutItemFetch(payload) {
   const response = yield call(() => putItemFetch(payload));
   if (response.error) {
+    console.log("error", response);
     yield put({ type: PUT_ITEM_FAILURE, response });
   } else {
-    let res = {
-      completion: response.completion,
-      name: payload.payload.name,
-    };
-    yield put({ type: PUT_ITEM_SUCCESS, res });
+    let res;
+    switch (payload.payload.method) {
+      case "EDIT":
+        res = {
+          method: "EDIT",
+          name: payload.payload.name,
+          content: response.content,
+          days: response.days,
+          completion: response.completion,
+        };
+        return yield put({ type: PUT_ITEM_SUCCESS, res });
+      case "COMPLETION":
+        res = {
+          method: "COMPLETION",
+          completion: response.completion,
+          name: payload.payload.name,
+        };
+        return yield put({ type: PUT_ITEM_SUCCESS, res });
+    }
   }
 }
 

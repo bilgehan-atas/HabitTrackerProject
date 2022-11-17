@@ -70,7 +70,7 @@ const App = () => {
 
   useEffect(() => {
     manageCookie();
-  }, []);
+  }, [manageCookie]);
 
   return <RouterProvider router={router} />;
 };

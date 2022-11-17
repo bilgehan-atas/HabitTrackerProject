@@ -52,10 +52,21 @@ export const itemsReducer = (
       return { ...state, isLoading: true };
     case PUT_ITEM_SUCCESS:
       let newItems = [...state.items];
-      let updatedItem = newItems.find(
-        (element) => !!element?.[action.res.name[0]]
-      )[action.res.name[0]];
-      updatedItem.completion = action.res.completion;
+      let updatedItem;
+      if (action.res.method === "COMPLETION") {
+        updatedItem = newItems.find(
+          (element) => !!element?.[action.res.name[0]]
+        )[action.res.name[0]];
+        updatedItem.completion = action.res.completion;
+      }
+      if (action.res.method === "EDIT") {
+        updatedItem = newItems.find((element) => !!element?.[action.res.name])[
+          action.res.name
+        ];
+        updatedItem.content = action.res.content;
+        updatedItem.completion = action.res.completion;
+        updatedItem.days = action.res.days;
+      }
       return {
         ...state,
         items: newItems,

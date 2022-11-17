@@ -4,7 +4,7 @@ const EntryList = ({ items }) => {
   return (
     <>
       {items.map((element, i) => {
-        return <EntryCard element={element} i={i} />;
+        return <EntryCard element={element} key={i} />;
       })}
     </>
   );

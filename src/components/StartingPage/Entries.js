@@ -22,6 +22,7 @@ const Entries = () => {
   const [visibleItems, setVisibleItems] = useState([]);
   const [showState, setShowState] = useState("UNCOMPLETED");
 
+  const today = date.toDateString().split(" ")[0];
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,6 +38,9 @@ const Entries = () => {
       case "UNCOMPLETED":
         let newItems = items.filter(
           (element) => element[Object.keys(element)]?.completion !== shortdate
+        );
+        newItems = newItems.filter((element) =>
+          element[Object.keys(element)]?.days.includes(today)
         );
         return setVisibleItems(newItems);
       case "COMPLETED":

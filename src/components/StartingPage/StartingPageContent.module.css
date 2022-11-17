@@ -71,6 +71,11 @@
   color: black;
 }
 
+.entries form {
+  width: 100%;
+  justify-content: center;
+}
+
 .entries label {
   display: block;
   color: black;
@@ -87,16 +92,24 @@
   width: 2rem;
   height: 2rem;
   display: block;
+  margin: auto;
 }
 
 .left {
   display: flex;
   gap: 1rem;
   align-items: center;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.left input {
+  min-width: 2rem;
 }
 
 .right {
   display: flex;
+  position: relative;
   gap: 1rem;
   align-items: center;
   position: relative;
@@ -118,8 +131,8 @@
 }
 
 .days {
-  display: flex;
   gap: 0.5rem;
+  display: flex;
 }
 
 .days span {
@@ -147,12 +160,19 @@
   background-color: #9f5ccc;
   border: 1px solid #9f5ccc;
   border-radius: 4px;
-  padding: 0.5rem 2.5rem;
+  padding: 0.5rem;
+  min-width: 4rem;
 }
 
 .actions button:hover {
   background-color: #873abb;
   border-color: #873abb;
+}
+
+.actions button:disabled {
+  background-color: #ae82cc;
+  border-color: #ae82cc;
+  cursor: not-allowed;
 }
 
 .actions .toggle {
@@ -186,7 +206,7 @@
 
 .formborder {
   border: 1px solid white;
-  max-width: 45rem;
+  max-width: 55rem;
   margin: 1rem auto;
   padding: 0.5rem 1.5rem;
   border-radius: 6px;
@@ -213,4 +233,44 @@
 
 .textcenter {
   text-align: center;
+}
+
+.dchecklist {
+}
+.dcheckbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dcall {
+  display: flex;
+  justify-content: center;
+}
+.dcheckbox label {
+  width: 8rem;
+}
+.dcheckbox input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.25rem 0 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .dcall {
+    text-align: center;
+  }
+  .dchecklist {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+  }
+  .dcheckbox {
+    display: block;
+    margin: 0;
+  }
+  .dcheckbox input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: auto;
+  }
 }
