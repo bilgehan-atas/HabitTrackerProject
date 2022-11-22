@@ -1,6 +1,6 @@
-## WIP explanation
+## Habit Tracker
 
-This is a WIP dummy project.
+This is a simple habit tracker project with signup and login options.
 
 ## Environment Requirements
 
@@ -55,4 +55,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 To learn TypeScript, check out the [TypeScript documentation](https://www.typescriptlang.org/docs/).
 
 To learn Tailwind, check out the [Tailwindcss documentation](https://tailwindcss.com/docs/installation).
+
 # HabitTrackerProject
