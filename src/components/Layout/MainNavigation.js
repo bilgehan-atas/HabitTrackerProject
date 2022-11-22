@@ -14,7 +14,7 @@ const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <Link to="/">
-        <div className={classes.logo}>WIP Dummy Project</div>
+        <div className={classes.logo}>Habit Tracker</div>
       </Link>
       <nav>
         <ul>

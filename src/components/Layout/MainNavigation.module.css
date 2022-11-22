@@ -10,8 +10,8 @@
 }
 
 .logo {
-  font-family: 'Lato', sans-serif;
-  font-size: 2rem;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
   color: white;
   margin: 0;
 }
@@ -52,4 +52,10 @@
 .header button:hover {
   background-color: #c291e2;
   color: #38015c;
+}
+
+@media only screen and (min-width: 768px) {
+  .logo {
+    font-size: 2rem;
+  }
 }
