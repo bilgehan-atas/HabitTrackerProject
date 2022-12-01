@@ -2,6 +2,8 @@
 
 This is a simple habit tracker project with signup and login options.
 
+to see it live in action please visit: [https://polite-crumble-ab09f0.netlify.app](https://polite-crumble-ab09f0.netlify.app)
+
 ## Environment Requirements
 
 You need below versions of node and npm:
