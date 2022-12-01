@@ -114,6 +114,8 @@ const putItemFetch = (payload) => {
           },
         }
       ).then((response) => response.json());
+    default:
+    //
   }
 };
 
@@ -141,6 +143,8 @@ function* workPutItemFetch(payload) {
           name: payload.payload.name,
         };
         return yield put({ type: PUT_ITEM_SUCCESS, res });
+      default:
+      //
     }
   }
 }
